@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa0990e1-2e38-45d3-968b-9110b08bc08e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test_git.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_git.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_git.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +16,7 @@
         <entry file="file://$PROJECT_DIR$/test_git.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="18" selection-start-column="18" selection-end-column="18" />
+              <caret column="20" selection-start-column="20" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -95,11 +95,11 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32956153" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.32956153" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -117,7 +117,7 @@
     <entry file="file://$PROJECT_DIR$/test_git.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
         </state>
       </provider>
     </entry>

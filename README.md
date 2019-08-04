@@ -13,11 +13,6 @@ git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
 ## Test our model:
-- on one image:
-```bash
-TODO
-```
-- on a whole folder:
 ```bash
 TODO
 ```

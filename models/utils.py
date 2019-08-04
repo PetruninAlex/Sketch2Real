@@ -1,0 +1,17 @@
+
+
+def normalize_batch(batch):
+    # normalize using imagenet mean and std
+    batch_cloned = batch.clone()
+    mean = batch_cloned.new_tensor([0.485, 0.456, 0.406]).view(-1, 1, 1)
+    std = batch_cloned.new_tensor([0.229, 0.224, 0.225]).view(-1, 1, 1)
+    batch_cloned = batch_cloned.div_(255.0)
+    return (batch_cloned - mean) / std
+
+
+def gram_matrix(y):
+    (b, ch, h, w) = y.size()
+    features = y.view(b, ch, w * h)
+    features_t = features.transpose(1, 2)
+    gram = features.bmm(features_t) / (ch * h * w)
+    return gram

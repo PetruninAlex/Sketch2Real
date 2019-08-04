@@ -22,8 +22,7 @@ TODO
 TODO
 ```
 ## Train your own model
-- Prepare data set for training:
-If you have a data set of real portraits you can run this script.
+- Prepare your data set for training:
 ```bash
 TODO
 ```

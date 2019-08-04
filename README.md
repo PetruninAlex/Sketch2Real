@@ -12,7 +12,7 @@ Our idea is:
 git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
-## Test our model:
+## Test our model
 ```bash
 TODO
 ```

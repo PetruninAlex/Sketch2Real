@@ -12,6 +12,14 @@ Our idea is:
 git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
+- Download our model
+```bash
+cd checkpoints
+wget TODO
+unzip TODO
+rm TODO
+```
+
 ## Test our model
 ```bash
 TODO

@@ -37,5 +37,10 @@ python train.py --dataroot /path/To/Data --name your_name_to_model --model pix2p
 ```bash
 python test.py --dataroot /path/To/Data --name your_name_to_model --model pix2pix --direction BtoA
 ```
+# Acknowledgments
+We used pix2pix network from here: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
+The inspiration to the perceptual loss came from this article: https://arxiv.org/abs/1603.08155
+The code for the perceptual loss came from here: https://github.com/pytorch/examples/tree/master/fast_neural_style
+The code for the edge extraction came from here: https://github.com/rishimukherjee/Canny-Python/blob/master/canny-slow.py 
 
 

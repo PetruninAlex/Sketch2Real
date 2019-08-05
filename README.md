@@ -19,7 +19,7 @@ pip install gdown
 bash download_model.sh
 TODO
 ```
-- Test out model:
+- Test our model:
 ```bash
 python test_model.py --dir /path/To/Images
 TODO

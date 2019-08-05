@@ -15,9 +15,11 @@ cd PortraitPainting2RealImage
 - Download our model
 ```bash
 cd checkpoints
-wget TODO
+pip install gdown
+gdown TODO
 unzip TODO
 rm TODO
+cd ..
 ```
 
 ## Test our model

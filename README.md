@@ -12,14 +12,10 @@ Our idea is:
 git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
-- Download our model from google drive (installing gdown): 
+- Download our model from google drive (need gdown): 
 ```bash
-cd checkpoints
 pip install gdown
-gdown TODO
-unzip TODO
-rm TODO
-cd ..
+bash download_model.sh
 ```
 
 ## Test our model

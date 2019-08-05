@@ -24,7 +24,7 @@ cd ..
 
 ## Test our model
 ```bash
-TODO
+python test.py --dataroot /path/To/Test/Folder --name TODO --model test --netG unet_256 --direction BtoA --dataset_mode single --norm batch
 ```
 ## Train your own model
 - Prepare your data set for training:

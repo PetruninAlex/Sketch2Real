@@ -1,10 +1,15 @@
 # PortraitPainting2RealImage
 
 We propose a new approach for generating realistic images out of portrait painting.
+
 Our idea is:
+
 1)extract the edges out of an image - using canny algorithm (without the edge-linking step)
+
 2)create negative out of the picture
-2)run our pix2pix with perceptual loss pretrained model 
+
+3)run our pix2pix with perceptual loss pretrained model
+
 # Instructions
 ## Installation
 - Clone this repo:

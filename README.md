@@ -12,7 +12,7 @@ Our idea is:
 git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
-- Download our model
+- Download our model from google drive: (installing gdown)
 ```bash
 cd checkpoints
 pip install gdown

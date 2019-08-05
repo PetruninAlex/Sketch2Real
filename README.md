@@ -13,7 +13,7 @@ git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
 ## Test our model
-- Download our model from google drive (need gdown): 
+- Download our model from google drive (needs gdown): 
 ```bash
 pip install gdown
 bash download_model.sh

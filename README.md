@@ -16,16 +16,18 @@ cd PortraitPainting2RealImage
 ```bash
 pip install gdown
 bash download_model.sh
+TODO
 ```
 
 ## Test our model
 ```bash
-python test.py --dataroot /path/To/Test/Folder --name TODO --model test --netG unet_256 --direction BtoA --dataset_mode single --norm batch
+python test_model.py --dir /path/To/Images
+TODO
 ```
 ## Train your own model
 - Prepare your data set for training:
 ```bash
-TODO
+python prepare_dataset.py --contentDir /path/To/Images --destDir /path/To/Save 
 ```
 - Train a model:
 ```bash

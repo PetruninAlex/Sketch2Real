@@ -1,6 +1,6 @@
 # PortraitPainting2RealImage
 <img src='images/model_pic.GIF'>
-<img src='images/generated_images.gif' align="middle">
+<img src='images/model_image.JPG' align="middle">
 We propose a new approach for generating realistic images out of portrait painting.
 
 Our idea is:

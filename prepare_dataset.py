@@ -28,6 +28,7 @@ if args.trainRatio + args.testRatio + args.valRatio != 1:
 content_dir = args.contentDir
 dest_dir = args.destDir
 list_of_files = os.listdir(content_dir)
+list_of_files.sort()
 number_of_files = len(list_of_files)
 
 a_train = dest_dir + "A/train/"

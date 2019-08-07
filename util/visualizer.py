@@ -220,6 +220,9 @@ class Visualizer():
         """
         message = '(epoch: %d, iters: %d, time: %.3f, data: %.3f) ' % (epoch, iters, t_comp, t_data)
         for k, v in losses.items():
+            if k == "G_style":
+                message += '%s: %.8f ' % (k, v)
+                continue
             message += '%s: %.3f ' % (k, v)
 
         print(message)  # print the message

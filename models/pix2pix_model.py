@@ -1,9 +1,11 @@
 import torch
-from .base_model import BaseModel
-from . import networks
-import torchvision.models as models
-from models.vgg import Vgg16
+
 from models.utils import normalize_batch, gram_matrix
+from models.vgg import Vgg16
+from . import networks
+from .base_model import BaseModel
+
+
 class Pix2PixModel(BaseModel):
     """ This class implements the pix2pix model, for learning a mapping from input images to output images given paired data.
 
@@ -14,6 +16,7 @@ class Pix2PixModel(BaseModel):
 
     pix2pix paper: https://arxiv.org/pdf/1611.07004.pdf
     """
+
     @staticmethod
     def modify_commandline_options(parser, is_train=True):
         """Add new dataset-specific options, and rewrite default values for existing options.
@@ -34,13 +37,10 @@ class Pix2PixModel(BaseModel):
         if is_train:
             parser.set_defaults(pool_size=0, gan_mode='vanilla')
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
-            parser.add_argument('--lambda_VGG_low', type=float, default=100.0, help='weight for VGG loss')
-            parser.add_argument('--lambda_VGG_deep', type=float, default=0, help='weight for deep VGG loss')
+            parser.add_argument('--lambda_content_low', type=float, default=100.0, help='weight for Content loss')
+            parser.add_argument('--lambda_content_deep', type=float, default=0, help='weight for deep Content loss')
             parser.add_argument('--lambda_style', type=float, default=0, help='weight for Style loss')
         return parser
-
-
-
 
     def __init__(self, opt):
         """Initialize the pix2pix class.
@@ -50,7 +50,7 @@ class Pix2PixModel(BaseModel):
         """
         BaseModel.__init__(self, opt)
         # specify the training losses you want to print out. The training/test scripts will call <BaseModel.get_current_losses>
-        self.loss_names = ['G_GAN', 'G_L1', 'G_VGG', 'G_Style', 'G_VGG_DEEP', 'D_real', 'D_fake']
+        self.loss_names = ['G_GAN', 'G_L1', 'G_content_low', 'G_content_deep', 'G_style', 'D_real', 'D_fake']
         # specify the images you want to save/display. The training/test scripts will call <BaseModel.get_current_visuals>
         self.visual_names = ['real_A', 'fake_B', 'real_B']
         # specify the models you want to save to the disk. The training/test scripts will call <BaseModel.save_networks> and <BaseModel.load_networks>
@@ -80,7 +80,6 @@ class Pix2PixModel(BaseModel):
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.vgg16 = Vgg16(requires_grad=False).to(device)
 
-
     def set_input(self, input):
         """Unpack input data from the dataloader and perform necessary pre-processing steps.
 
@@ -101,7 +100,8 @@ class Pix2PixModel(BaseModel):
     def backward_D(self):
         """Calculate GAN loss for the discriminator"""
         # Fake; stop backprop to the generator by detaching fake_B
-        fake_AB = torch.cat((self.real_A, self.fake_B), 1)  # we use conditional GANs; we need to feed both input and output to the discriminator
+        fake_AB = torch.cat((self.real_A, self.fake_B),
+                            1)  # we use conditional GANs; we need to feed both input and output to the discriminator
         pred_fake = self.netD(fake_AB.detach())
         self.loss_D_fake = self.criterionGAN(pred_fake, False)
         # Real
@@ -113,40 +113,52 @@ class Pix2PixModel(BaseModel):
         self.loss_D.backward()
 
     def backward_G(self):
-        """Calculate loss for the generator"""
+        """Calculate GAN, L1, Content and Style losses"""
         # First, G(A) should fake the discriminator
         fake_AB = torch.cat((self.real_A, self.fake_B), 1)
         pred_fake = self.netD(fake_AB)
         self.loss_G_GAN = self.criterionGAN(pred_fake, True)
         # Second, G(A) = B
+        print("L1 lambda man:***")
+        print(self.opt.lambda_L1)
         self.loss_G_L1 = self.criterionL1(self.fake_B, self.real_B) * self.opt.lambda_L1
-        # Third, calculate VGG loss
+        # Third, calculate Content loss
         normalized_real = normalize_batch(self.real_B)
         normalized_fake = normalize_batch(self.fake_B)
         features_real = self.vgg16(normalized_real)
         features_fake = self.vgg16(normalized_fake)
-        self.loss_G_VGG = self.mse_loss(features_real.relu2_2, features_fake.relu2_2)*self.opt.lambda_VGG_low
-        self.loss_G_VGG_DEEP = self.mse_loss(features_real.relu4_3, features_fake.relu4_3)*self.opt.lambda_VGG_deep
+        print("lambda content low man:***")
+        print(self.opt.lambda_content_low)
+        print("lambda content deep man:***")
+        print(self.opt.lambda_content_deep)
+        print("lambda style man:***")
+        print(self.opt.lambda_style)
+        self.loss_G_content_low = self.mse_loss(features_real.relu2_2, features_fake.relu2_2) * self.opt.lambda_content_low
+        self.loss_G_content_deep = self.mse_loss(features_real.relu4_3, features_fake.relu4_3) * self.opt.lambda_content_deep
         # Forth, calculate Style loss
-        gram_real = [gram_matrix(y) for y in features_real]
-        self.loss_G_Style = 0
-        for ft_f, gm_r in zip(features_fake, gram_real):
-            gm_f = gram_matrix(ft_f)
-            self.loss_G_Style += self.mse_loss(gm_f, gm_r[:1, :, :])
-        self.loss_G_Style *= self.opt.lambda_style
+        self.loss_G_style = 0
+        if self.opt.lambda_style > 0:
+            print("I am inside")
+            gram_real = [gram_matrix(y) for y in features_real]
+            for ft_f, gm_r in zip(features_fake, gram_real):
+                gm_f = gram_matrix(ft_f)
+                self.loss_G_style += self.mse_loss(gm_f, gm_r[:self.opt.batch_size, :, :])
+            print(self.loss_G_style)
+            print(self.opt.lambda_style)
+            self.loss_G_style *= self.opt.lambda_style
         # combine loss and calculate gradients
-        self.loss_G = self.loss_G_GAN + self.loss_G_L1 + self.loss_G_VGG + self.loss_G_Style + self.loss_G_VGG_DEEP
+        self.loss_G = self.loss_G_GAN + self.loss_G_L1 + self.loss_G_content_low + self.loss_G_content_deep + self.loss_G_style
         self.loss_G.backward()
 
     def optimize_parameters(self):
-        self.forward()                   # compute fake images: G(A)
+        self.forward()  # compute fake images: G(A)
         # update D
         self.set_requires_grad(self.netD, True)  # enable backprop for D
-        self.optimizer_D.zero_grad()     # set D's gradients to zero
-        self.backward_D()                # calculate gradients for D
-        self.optimizer_D.step()          # update D's weights
+        self.optimizer_D.zero_grad()  # set D's gradients to zero
+        self.backward_D()  # calculate gradients for D
+        self.optimizer_D.step()  # update D's weights
         # update G
         self.set_requires_grad(self.netD, False)  # D requires no gradients when optimizing G
-        self.optimizer_G.zero_grad()        # set G's gradients to zero
-        self.backward_G()                   # calculate graidents for G
-        self.optimizer_G.step()             # udpate G's weights
+        self.optimizer_G.zero_grad()  # set G's gradients to zero
+        self.backward_G()  # calculate graidents for G
+        self.optimizer_G.step()  # udpate G's weights

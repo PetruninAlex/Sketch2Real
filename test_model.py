@@ -20,7 +20,7 @@ for file in list_of_files:
     scipy.misc.imsave("./tmp/" + file, edges)
 
 os.system(
-    "python test.py --dataroot ./tmp --name TODO --model test --netG unet_256 --direction BtoA --dataset_mode single --norm batch")
+    "python test.py --dataroot ./tmp --name best_model --model test --netG unet_256 --direction BtoA --dataset_mode single --norm batch")
 
 for file in list_of_files:
     os.system("rm ./tmp/" + file)

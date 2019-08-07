@@ -1,13 +1,13 @@
 # PortraitPainting2RealImage
 <img src='images/model_image.JPG'>
 <img src='images/generated_images.gif'>
-We propose a new approach for generating realistic images out of portrait painting.
+We propose a new approach for generating realistic images out of a sketch drawing.
 
 Our idea is:
 
 1)Extract the edges out of an image
 
-2)Run our pix2pix with perceptual loss pretrained model
+2)Run our pix2pix with added perceptual loss term
 
 # Instructions
 ## Installation

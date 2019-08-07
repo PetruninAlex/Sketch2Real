@@ -1,4 +1,4 @@
-# PortraitPainting2RealImage
+# Sketch2Real
 <img src='images/model_image.JPG'>
 <img src='images/generated_images.gif'>
 We propose a new approach for generating realistic images out of a sketch drawing.

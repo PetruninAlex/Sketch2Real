@@ -42,7 +42,7 @@ python test.py --dataroot /path/To/Data --name your_name_to_model --model pix2pi
 ```
 for more useful information about the training and testing pix2pix network [click here](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/tips.md)
 # Acknowledgments
-We used pix2pix network from here: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
+We used the pix2pix network from here: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix
 
 The inspiration to the perceptual loss came from this article: https://arxiv.org/abs/1603.08155
 

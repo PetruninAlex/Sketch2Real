@@ -37,6 +37,7 @@ python prepare_dataset.py --contentDir /path/To/Images --destDir /path/To/Save
 ```bash
 python train.py --dataroot /path/To/Data --name your_name_to_model --model pix2pix --direction BtoA --lambda_L1 lambda_l1 --lambda_content_low lambda_content_low --lambda_content_deep lambda_content_deep --lambda_style lambda_style
 ```
+- The default and the best results were achieved using: `--lambda_L1 = 100, --lambda_content_low = 100, --lambda_content_deep = 0, --lambda_style = 0`
 - Test the model:
 ```bash
 python test.py --dataroot /path/To/Data --name your_name_to_model --model pix2pix --direction BtoA

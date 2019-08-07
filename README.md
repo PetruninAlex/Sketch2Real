@@ -17,7 +17,7 @@ git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
 cd PortraitPainting2RealImage
 ```
 ## Test our pre-trained model
-- Download our model from google drive (needs gdown): 
+- Download weights from google drive (needs gdown): 
 ```bash
 pip install gdown
 bash download_model.sh

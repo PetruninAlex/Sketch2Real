@@ -1,10 +1,13 @@
 import argparse
 import os
+import warnings
 
-import imageio
+import scipy
 from PIL import Image
 
 from extract_edges import extract_edges
+
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 parser = argparse.ArgumentParser(description='Receiving directories info for data preparation')
 parser.add_argument("--contentDir", type=str, default=None)
@@ -57,19 +60,19 @@ for file in list_of_files:
 
     if counter_train > 0:
         img.save(a_train + file)
-        imageio.imwrite(b_train + file, edges)
+        scipy.misc.imsave(b_train + file, edges)
         counter_train -= 1
         continue
 
     if counter_val > 0:
         img.save(a_val + file)
-        imageio.imwrite(b_val + file, edges)
+        scipy.misc.imsave(b_val + file, edges)
         counter_val -= 1
         continue
 
     if counter_test > 0:
         img.save(a_test + file)
-        imageio.imwrite(b_test + file, edges)
+        scipy.misc.imsave(b_test + file, edges)
         counter_test -= 1
         continue
 

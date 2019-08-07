@@ -50,6 +50,8 @@ The inspiration to the perceptual loss came from this article: https://arxiv.org
 
 The code for the perceptual loss came from here: https://github.com/pytorch/examples/tree/master/fast_neural_style
 
-The code for the edge extraction came from here: https://github.com/rishimukherjee/Canny-Python/blob/master/canny-slow.py 
+The code for the edge extraction came from here: https://github.com/rishimukherjee/Canny-Python/blob/master/canny-slow.py
+
+(Note: though the README file states the implementation is not finished, it actually is)
 
 We used this data set for sketches: http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html

@@ -5,9 +5,9 @@ We propose a new approach for generating realistic images out of a sketch drawin
 
 Our idea is:
 
-1)Extract the edges out of an image.
+1)Extract the edges out of a sketch drawing.
 
-2)Run our pix2pix with added perceptual loss term.
+2)Run pix2pix model with added perceptual loss term.
 
 # Instructions
 ## Installation

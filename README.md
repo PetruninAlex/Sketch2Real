@@ -27,7 +27,6 @@ bash download_model.sh
 - Test our model:
 ```bash
 python test_model.py --dir /path/To/Images
-TODO
 ```
 ## Train your own model
 - Prepare your data set for training:
@@ -36,7 +35,7 @@ python prepare_dataset.py --contentDir /path/To/Images --destDir /path/To/Save
 ```
 - Train a model:
 ```bash
-python train.py --dataroot /path/To/Data --name your_name_to_model --model pix2pix --direction BtoA
+python train.py --dataroot /path/To/Data --name your_name_to_model --model pix2pix --direction BtoA --lambda_L1 lambda_l1 --lambda_content_low lambda_content_low --lambda_content_deep lambda_content_deep --lambda_style lambda_style
 ```
 - Test the model:
 ```bash

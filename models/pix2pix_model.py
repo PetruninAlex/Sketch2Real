@@ -37,8 +37,8 @@ class Pix2PixModel(BaseModel):
         if is_train:
             parser.set_defaults(pool_size=0, gan_mode='vanilla')
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
-            parser.add_argument('--lambda_content_low', type=float, default=100.0, help='weight for Content loss')
-            parser.add_argument('--lambda_content_deep', type=float, default=0, help='weight for deep Content loss')
+            parser.add_argument('--lambda_content_low', type=float, default=100.0, help='weight for content loss')
+            parser.add_argument('--lambda_content_deep', type=float, default=0, help='weight for deep content loss')
             parser.add_argument('--lambda_style', type=float, default=0, help='weight for Style loss')
         return parser
 
@@ -119,32 +119,21 @@ class Pix2PixModel(BaseModel):
         pred_fake = self.netD(fake_AB)
         self.loss_G_GAN = self.criterionGAN(pred_fake, True)
         # Second, G(A) = B
-        print("L1 lambda man:***")
-        print(self.opt.lambda_L1)
         self.loss_G_L1 = self.criterionL1(self.fake_B, self.real_B) * self.opt.lambda_L1
         # Third, calculate Content loss
         normalized_real = normalize_batch(self.real_B)
         normalized_fake = normalize_batch(self.fake_B)
         features_real = self.vgg16(normalized_real)
         features_fake = self.vgg16(normalized_fake)
-        print("lambda content low man:***")
-        print(self.opt.lambda_content_low)
-        print("lambda content deep man:***")
-        print(self.opt.lambda_content_deep)
-        print("lambda style man:***")
-        print(self.opt.lambda_style)
         self.loss_G_content_low = self.mse_loss(features_real.relu2_2, features_fake.relu2_2) * self.opt.lambda_content_low
         self.loss_G_content_deep = self.mse_loss(features_real.relu4_3, features_fake.relu4_3) * self.opt.lambda_content_deep
         # Forth, calculate Style loss
         self.loss_G_style = 0
         if self.opt.lambda_style > 0:
-            print("I am inside")
             gram_real = [gram_matrix(y) for y in features_real]
             for ft_f, gm_r in zip(features_fake, gram_real):
                 gm_f = gram_matrix(ft_f)
                 self.loss_G_style += self.mse_loss(gm_f, gm_r[:self.opt.batch_size, :, :])
-            print(self.loss_G_style)
-            print(self.opt.lambda_style)
             self.loss_G_style *= self.opt.lambda_style
         # combine loss and calculate gradients
         self.loss_G = self.loss_G_GAN + self.loss_G_L1 + self.loss_G_content_low + self.loss_G_content_deep + self.loss_G_style

@@ -36,7 +36,7 @@ class Pix2PixModel(BaseModel):
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
             parser.add_argument('--lambda_VGG_low', type=float, default=100.0, help='weight for VGG loss')
             parser.add_argument('--lambda_VGG_deep', type=float, default=0, help='weight for deep VGG loss')
-            parser.add_argument('--lambda_Style', type=float, default=0, help='weight for Style loss')
+            parser.add_argument('--lambda_style', type=float, default=0, help='weight for Style loss')
         return parser
 
 
@@ -133,7 +133,7 @@ class Pix2PixModel(BaseModel):
         for ft_f, gm_r in zip(features_fake, gram_real):
             gm_f = gram_matrix(ft_f)
             self.loss_G_Style += self.mse_loss(gm_f, gm_r[:1, :, :])
-        self.loss_G_Style *= self.opt.lambda_Style
+        self.loss_G_Style *= self.opt.lambda_style
         # combine loss and calculate gradients
         self.loss_G = self.loss_G_GAN + self.loss_G_L1 + self.loss_G_VGG + self.loss_G_Style + self.loss_G_VGG_DEEP
         self.loss_G.backward()

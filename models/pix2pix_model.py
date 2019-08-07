@@ -36,6 +36,7 @@ class Pix2PixModel(BaseModel):
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
             parser.add_argument('--lambda_VGG', type=float, default=100.0, help='weight for VGG loss')
             parser.add_argument('--lambda_Style', type=float, default=0, help='weight for Style loss')
+            parser.add_argument('--lambda_VGG_deep', type=float, default=0, help='weight for deep VGG loss')
 
 
 
@@ -52,7 +53,7 @@ class Pix2PixModel(BaseModel):
         """
         BaseModel.__init__(self, opt)
         # specify the training losses you want to print out. The training/test scripts will call <BaseModel.get_current_losses>
-        self.loss_names = ['G_GAN', 'G_L1', 'G_VGG', 'D_real', 'D_fake', 'Style']
+        self.loss_names = ['G_GAN', 'G_L1', 'G_VGG', 'G_Style', 'G_VGG_DEEP', 'D_real', 'D_fake']
         # specify the images you want to save/display. The training/test scripts will call <BaseModel.get_current_visuals>
         self.visual_names = ['real_A', 'fake_B', 'real_B']
         # specify the models you want to save to the disk. The training/test scripts will call <BaseModel.save_networks> and <BaseModel.load_networks>
@@ -115,7 +116,7 @@ class Pix2PixModel(BaseModel):
         self.loss_D.backward()
 
     def backward_G(self):
-        """Calculate GAN and L1 loss for the generator"""
+        """Calculate loss for the generator"""
         # First, G(A) should fake the discriminator
         fake_AB = torch.cat((self.real_A, self.fake_B), 1)
         pred_fake = self.netD(fake_AB)
@@ -128,15 +129,16 @@ class Pix2PixModel(BaseModel):
         features_real = self.vgg16(normalized_real)
         features_fake = self.vgg16(normalized_fake)
         self.loss_G_VGG = self.mse_loss(features_real.relu2_2, features_fake.relu2_2)*self.opt.lambda_VGG
-        # Forth, calculate Style oss
+        self.loss_G_VGG_DEEP = self.mse_loss(features_real.relu4_3, features_fake.relu4_3)*self.opt.lambda_VGG_deep
+        # Forth, calculate Style loss
         gram_real = [gram_matrix(y) for y in features_real]
-        self.loss_Style = 0
+        self.loss_G_Style = 0
         for ft_f, gm_r in zip(features_fake, gram_real):
             gm_f = gram_matrix(ft_f)
-            self.loss_Style += self.mse_loss(gm_f, gm_r[:1, :, :])
-        self.loss_Style *= self.opt.lambda_Style
+            self.loss_G_Style += self.mse_loss(gm_f, gm_r[:1, :, :])
+        self.loss_G_Style *= self.opt.lambda_Style
         # combine loss and calculate gradients
-        self.loss_G = self.loss_G_GAN + self.loss_G_L1 + self.loss_G_VGG + self.loss_Style
+        self.loss_G = self.loss_G_GAN + self.loss_G_L1 + self.loss_G_VGG + self.loss_G_Style + self.loss_G_VGG_DEEP
         self.loss_G.backward()
 
     def optimize_parameters(self):

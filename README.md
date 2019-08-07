@@ -24,13 +24,13 @@ bash download_model.sh
 ```
 - Test our pre-trained model:
 ```bash
-python test_model.py --dir /path/To/Images
+python test_model.py --dir /path/To/Images/Folder
 ```
 - Check your results here: ./results/best_model/test_latest/images/
 ## Train your own model
 - Prepare your data set for training:
 ```bash
-python prepare_dataset.py --contentDir /path/To/Images --destDir /path/To/Save 
+python prepare_dataset.py --contentDir /path/To/Images/Folder --destDir /path/To/Save 
 ```
 - You can use `—-trainRatio, —-testRatio, —-valRatio` to change the ratios. 
 - The default is: `--trainRatio = 0.7, —-testRatio = 0.15, —-valRatio = 0.15`.

@@ -12,9 +12,9 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 parser = argparse.ArgumentParser(description='Receiving directories info for data preparation')
 parser.add_argument("--contentDir", type=str, default=None)
 parser.add_argument("--destDir", type=str, default=None)
-parser.add_argument("--trainRatio", type=int, default=0.7)
-parser.add_argument("--testRatio", type=int, default=0.15)
-parser.add_argument("--valRatio", type=int, default=0.15)
+parser.add_argument("--trainRatio", type=float, default=0.7)
+parser.add_argument("--testRatio", type=float, default=0.15)
+parser.add_argument("--valRatio", type=float, default=0.15)
 args = parser.parse_args()
 
 if args.contentDir == None or args.destDir == None:

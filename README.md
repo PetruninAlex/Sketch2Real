@@ -28,6 +28,7 @@ bash download_model.sh
 ```bash
 python test_model.py --dir /path/To/Images
 ```
+check your results here: ./results/best_model/test_latest/images/
 ## Train your own model
 - Prepare your data set for training:
 ```bash

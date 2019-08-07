@@ -51,4 +51,4 @@ The code for the perceptual loss came from here: https://github.com/pytorch/exam
 
 The code for the edge extraction came from here: https://github.com/rishimukherjee/Canny-Python/blob/master/canny-slow.py 
 
-
+We used this data set for sketches: http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html

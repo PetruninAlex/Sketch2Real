@@ -22,7 +22,7 @@ cd PortraitPainting2RealImage
 pip install gdown
 bash download_model.sh
 ```
-- Test our model:
+- Test our pre-trained model:
 ```bash
 python test_model.py --dir /path/To/Images
 ```

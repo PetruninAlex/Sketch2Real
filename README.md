@@ -32,7 +32,8 @@ python test_model.py --dir /path/To/Images
 ```bash
 python prepare_dataset.py --contentDir /path/To/Images --destDir /path/To/Save 
 ```
-- You can use `—trainRatio, —testRatio, —valRatio` to change the ratios, by default it is: `—trainRatio = 0.7, —testRatio = 0.15, —valRatio = 0.15`
+- You can use `—-trainRatio, —-testRatio, —-valRatio` to change the ratios. 
+- The default is: `--trainRatio = 0.7, —-testRatio = 0.15, —-valRatio = 0.15`.
 - Train a model:
 ```bash
 python train.py --dataroot /path/To/Data --name your_name_to_model --model pix2pix --direction BtoA --lambda_L1 lambda_l1 --lambda_content_low lambda_content_low --lambda_content_deep lambda_content_deep --lambda_style lambda_style

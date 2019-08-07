@@ -13,8 +13,8 @@ Our idea is:
 ## Installation
 - Clone this repo:
 ```bash
-git clone https://github.com/PetruninAlex/PortraitPainting2RealImage.git
-cd PortraitPainting2RealImage
+git clone https://github.com/PetruninAlex/Sketch2Real.git
+cd Sketch2Real
 ```
 ## Test our pre-trained model
 - Download weights from google drive (needs gdown): 

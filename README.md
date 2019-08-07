@@ -5,11 +5,9 @@ We propose a new approach for generating realistic images out of portrait painti
 
 Our idea is:
 
-1)extract the edges out of an image - using canny algorithm (without the edge-linking step)
+1)Extract the edges out of an image
 
-2)create negative out of the picture
-
-3)run our pix2pix with perceptual loss pretrained model
+2)Run our pix2pix with perceptual loss pretrained model
 
 # Instructions
 ## Installation

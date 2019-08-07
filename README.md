@@ -29,6 +29,7 @@ python test_model.py --dir /path/To/Images/Folder
 - Check your results here: ./results/best_model/test_latest/images/
 ## Train your own model
 - Prepare your data set for training:
+It will extract edges from the images in the folder, and prepare the folder to pix2pix training.
 ```bash
 python prepare_dataset.py --contentDir /path/To/Images/Folder --destDir /path/To/Save 
 ```

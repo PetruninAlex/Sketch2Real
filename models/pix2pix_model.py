@@ -34,12 +34,9 @@ class Pix2PixModel(BaseModel):
         if is_train:
             parser.set_defaults(pool_size=0, gan_mode='vanilla')
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
-            parser.add_argument('--lambda_VGG', type=float, default=100.0, help='weight for VGG loss')
-            parser.add_argument('--lambda_Style', type=float, default=0, help='weight for Style loss')
+            parser.add_argument('--lambda_VGG_low', type=float, default=100.0, help='weight for VGG loss')
             parser.add_argument('--lambda_VGG_deep', type=float, default=0, help='weight for deep VGG loss')
-
-
-
+            parser.add_argument('--lambda_Style', type=float, default=0, help='weight for Style loss')
         return parser
 
 
@@ -128,7 +125,7 @@ class Pix2PixModel(BaseModel):
         normalized_fake = normalize_batch(self.fake_B)
         features_real = self.vgg16(normalized_real)
         features_fake = self.vgg16(normalized_fake)
-        self.loss_G_VGG = self.mse_loss(features_real.relu2_2, features_fake.relu2_2)*self.opt.lambda_VGG
+        self.loss_G_VGG = self.mse_loss(features_real.relu2_2, features_fake.relu2_2)*self.opt.lambda_VGG_low
         self.loss_G_VGG_DEEP = self.mse_loss(features_real.relu4_3, features_fake.relu4_3)*self.opt.lambda_VGG_deep
         # Forth, calculate Style loss
         gram_real = [gram_matrix(y) for y in features_real]

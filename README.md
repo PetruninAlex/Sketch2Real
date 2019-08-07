@@ -56,3 +56,5 @@ The code for the edge extraction came from here: https://github.com/rishimukherj
 (Note: though the README file states the implementation is not finished, it actually is)
 
 We used this data set for sketches: http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html
+
+We used this data set for training: http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html

@@ -23,7 +23,6 @@ cd PortraitPainting2RealImage
 ```bash
 pip install gdown
 bash download_model.sh
-TODO
 ```
 - Test our model:
 ```bash

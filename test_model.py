@@ -21,7 +21,8 @@ for file in list_of_files:
     imageio.imwrite("./tmp/" + file, edges)
 
 os.system(
-    "python test.py --dataroot ./tmp --name TODO --model test --netG unet_256 --direction BtoA --dataset_mode single --norm batch --num_test " + str(number_of_images))
+    "python test.py --dataroot ./tmp --name TODO --model test --netG unet_256 --direction BtoA --dataset_mode single --norm batch --num_test " + str(
+        number_of_images))
 
 for file in list_of_files:
     os.system("rm ./tmp/" + file)
